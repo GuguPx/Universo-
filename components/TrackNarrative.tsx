@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { InteractiveQuestion } from "@/components/InteractiveQuestion";
 import { AdvanceButton, QuietButton } from "@/components/ui/Buttons";
@@ -14,8 +14,6 @@ interface Props {
   telepatiaAnswer: TelepatiaAnswer | null;
   onTelepatiaAnswer: (answer: TelepatiaAnswer) => void;
   onAdvance: () => void;
-  /** Avisa a experiência de que já dá pra seguir (teclado, swipe, roda). */
-  onReady: () => void;
 }
 
 const EMPHASIS =
@@ -29,17 +27,11 @@ function Advance({
   show,
   label,
   onAdvance,
-  onReady,
 }: {
   show: boolean;
   label?: string;
   onAdvance: () => void;
-  onReady: () => void;
 }) {
-  useEffect(() => {
-    if (show) onReady();
-  }, [show, onReady]);
-
   return (
     <Reveal when={show} className="mt-9">
       <AdvanceButton onClick={onAdvance} label={label ?? "próxima carta"} />
@@ -57,7 +49,6 @@ export function TrackNarrative({
   telepatiaAnswer,
   onTelepatiaAnswer,
   onAdvance,
-  onReady,
 }: Props) {
   const [nudged, setNudged] = useState(false);
   const [asked, setAsked] = useState(false);
@@ -86,7 +77,7 @@ export function TrackNarrative({
   const heartShown = useTimedReveal(1600, askedHere);
   const pauseOver = useTimedReveal(3000, askedHere);
 
-  const advanceProps = { label: track.nextLabel, onAdvance, onReady };
+  const advanceProps = { label: track.nextLabel, onAdvance };
 
   return (
     <>

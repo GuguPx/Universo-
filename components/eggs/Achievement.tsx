@@ -20,7 +20,7 @@ export function Achievement() {
       {achievement && (
         <motion.div
           role="status"
-          className="pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center px-6 sm:top-20"
+          className="pt-safe pointer-events-none fixed inset-x-0 top-16 z-50 flex justify-center px-6 sm:top-20"
           initial={{ opacity: 0, y: -14, filter: "blur(8px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}

@@ -31,7 +31,7 @@ export function Intro({ onStart }: Props) {
   return (
     <section
       aria-label="Início da leitura"
-      className="relative flex min-h-svh flex-col items-center justify-center px-6 py-20 text-center"
+      className="min-h-screen-ios relative flex flex-col items-center justify-center px-6 py-20 text-center"
     >
       {/* A aura grande que fica atrás de tudo nesta primeira tela. */}
       <div

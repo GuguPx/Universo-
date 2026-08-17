@@ -40,7 +40,7 @@ export function ArbustoModal() {
           <StarBurst />
 
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10"
+            className="pb-safe pt-safe fixed inset-0 z-50 flex items-center justify-center px-6 py-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -57,9 +57,8 @@ export function ArbustoModal() {
               role="dialog"
               aria-modal="true"
               aria-labelledby="transmissao-titulo"
-              className="relative w-full max-w-sm overflow-y-auto rounded-3xl border border-petal-light/30 px-7 py-9 text-center"
+              className="max-h-screen-ios relative w-full max-w-sm overflow-y-auto rounded-3xl border border-petal-light/30 px-7 py-9 text-center"
               style={{
-                maxHeight: "88svh",
                 background:
                   "linear-gradient(165deg, #2A0A1A 0%, #140810 50%, #1E0713 100%)",
                 boxShadow:

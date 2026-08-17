@@ -84,7 +84,7 @@ export function PlantCorner({ visible }: { visible: boolean }) {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed bottom-4 left-4 z-40 flex items-end gap-3 sm:bottom-5 sm:left-6"
+          className="pb-safe pl-safe fixed bottom-4 left-4 z-40 flex items-end gap-3 sm:bottom-5 sm:left-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -94,7 +94,7 @@ export function PlantCorner({ visible }: { visible: boolean }) {
             type="button"
             onClick={onClick}
             aria-label="uma plantinha"
-            className="group -m-2 rounded-full p-2 text-petal-light/25 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
+            className="group -m-3 rounded-full p-3 text-petal-light/25 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
           >
             <Sprout
               size={19}

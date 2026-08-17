@@ -48,7 +48,7 @@ export function EasterEgg({ onFinalNote }: { onFinalNote: () => void }) {
   return (
     <section
       aria-label={`Carta escondida: ${secretTrack.title}, de ${secretTrack.artist}`}
-      className="relative flex min-h-svh flex-col items-center justify-center px-6 py-20 text-center"
+      className="min-h-screen-ios relative flex flex-col items-center justify-center px-6 py-20 text-center"
     >
       {/* A aura mais forte da experiência inteira, crescendo devagar. */}
       <motion.div
@@ -92,7 +92,7 @@ export function EasterEgg({ onFinalNote }: { onFinalNote: () => void }) {
         </p>
 
         <div className="mt-7 w-full max-w-[420px]">
-          <SpotifyPlayer track={secretTrack} />
+          <SpotifyPlayer track={secretTrack} autoPlay />
         </div>
       </motion.div>
 

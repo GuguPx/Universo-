@@ -33,6 +33,9 @@
     background-color: var(--background);
     color-scheme: dark;
     -webkit-tap-highlight-color: transparent;
+    /* Safari deitado aumenta a fonte sozinho; a leitura tem ritmo próprio. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     /* Os halos das capas passam da borda de propósito; isso impede que
        eles criem uns pixels de rolagem horizontal no celular. */
     overflow-x: hidden;
@@ -44,9 +47,15 @@
     color: var(--text-primary);
     overflow-x: hidden;
     overflow-x: clip;
+    /* No iPhone, puxar a tela pra baixo recarregaria a página e apagaria
+       tudo que já apareceu. A leitura inteira vive em memória. */
+    overscroll-behavior-y: contain;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Notch e barra lateral no modo paisagem. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   ::selection {
@@ -120,6 +129,32 @@
 }
 
 @layer utilities {
+  /* Altura de tela cheia com a barra do Safari entrando e saindo.
+     O 100vh fica de reserva para navegadores sem svh. */
+  .min-h-screen-ios {
+    min-height: 100vh;
+    min-height: 100svh;
+  }
+
+  /* Mesma ideia para caixas que precisam caber na tela (modais). */
+  .max-h-screen-ios {
+    max-height: 88vh;
+    max-height: 88svh;
+  }
+
+  /* Respiros do iPhone: home indicator embaixo, notch em cima. */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pl-safe {
+    padding-left: env(safe-area-inset-left);
+  }
+
   /* Grão de filme. Tira o aspecto de gradiente de template. */
   .grain {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");

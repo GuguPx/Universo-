@@ -23,7 +23,6 @@ import {
 } from "@/components/eggs/EasterEggProvider";
 import { FinalNote } from "@/components/eggs/FinalNote";
 import { PlantCorner } from "@/components/eggs/PlantCorner";
-import { useAdvanceGestures } from "@/hooks/useAdvanceGestures";
 import { useTypedWord } from "@/hooks/useTypedWord";
 import { patchState } from "@/lib/storage";
 import { secretTrack, tracks } from "@/data/tracks";
@@ -73,7 +72,6 @@ function ExperienceInner({
   const reduce = useReducedMotion();
   const { openTransmission } = useEggs();
 
-  const [ready, setReady] = useState(true);
   const [dimmed, setDimmed] = useState(false);
 
   const [telepatiaAnswer, setTelepatiaAnswer] = useState<TelepatiaAnswer | null>(
@@ -94,10 +92,10 @@ function ExperienceInner({
   // Digitar "arbusto" em qualquer lugar abre a transmissão secreta.
   useTypedWord("arbusto", openTransmission);
 
-  // Cada carta começa do topo e travada.
+  // Cada carta começa do topo. A troca só acontece no botão, então rolar
+  // a página aqui é só leitura: nenhuma mensagem se perde no caminho.
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
-    setReady(stage === "intro");
   }, [stage, index]);
 
   const track = tracks[index];
@@ -117,20 +115,6 @@ function ExperienceInner({
     setIndex((current) => current + 1);
   }, [index, setStage, setIndex]);
 
-  const onGesture = useCallback(() => {
-    if (stage === "intro") {
-      goToTracks();
-      return;
-    }
-    if (stage === "track") nextTrack();
-  }, [stage, goToTracks, nextTrack]);
-
-  useAdvanceGestures({
-    enabled: ready && (stage === "intro" || stage === "track"),
-    onAdvance: onGesture,
-  });
-
-  const markReady = useCallback(() => setReady(true), []);
   const markDimmed = useCallback(() => setDimmed(true), []);
 
   const handleTelepatia = useCallback((answer: TelepatiaAnswer) => {
@@ -254,7 +238,6 @@ function ExperienceInner({
                     telepatiaAnswer={telepatiaAnswer}
                     onTelepatiaAnswer={handleTelepatia}
                     onAdvance={nextTrack}
-                    onReady={markReady}
                   />
                 }
               />
@@ -266,7 +249,6 @@ function ExperienceInner({
                 answer={finalAnswer}
                 onAnswer={handleFinal}
                 onAdvance={nextTrack}
-                onReady={markReady}
               />
             )}
 

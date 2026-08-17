@@ -15,6 +15,13 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "iOS >= 15",
+    "Safari >= 15",
+    "not dead"
+  ],
   "devDependencies": {
     "@types/node": "^22.18.1",
     "@types/react": "^19.1.13",

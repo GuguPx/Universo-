@@ -19,7 +19,7 @@ export function FinalNote() {
   return (
     <section
       aria-label="um recado do Arbusto"
-      className="flex min-h-svh flex-col items-center justify-center px-6 py-20 text-center"
+      className="min-h-screen-ios flex flex-col items-center justify-center px-6 py-20 text-center"
     >
       <div className="flex w-full max-w-[34ch] flex-col items-center" aria-live="polite">
         <Reveal delay={900}>

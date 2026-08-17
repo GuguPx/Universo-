@@ -10,8 +10,8 @@ import { withAlpha } from "@/lib/color";
 interface Props {
   track: Track;
   priority?: boolean;
-  /** Tamanho máximo em desktop, em px. */
-  maxWidth?: number;
+  /** Tamanho máximo. Número em px, ou qualquer valor CSS de largura. */
+  maxWidth?: number | string;
   /** Multiplica o halo. Sobe nos momentos mais românticos. */
   glow?: number;
 }

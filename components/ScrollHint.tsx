@@ -44,7 +44,7 @@ export function ScrollHint({ visible }: { visible: boolean }) {
       {visible && needsScroll && (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none fixed inset-x-0 bottom-5 z-30 flex justify-center"
+          className="pb-safe pointer-events-none fixed inset-x-0 bottom-5 z-30 flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

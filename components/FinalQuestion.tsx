@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Cover } from "@/components/Cover";
 import { SpotifyPlayer } from "@/components/SpotifyPlayer";
@@ -16,7 +15,6 @@ interface Props {
   answer: FinalAnswer | null;
   onAnswer: (answer: FinalAnswer) => void;
   onAdvance: () => void;
-  onReady: () => void;
 }
 
 /** As três frases antes da pergunta. Cada uma com sua pausa. */
@@ -48,7 +46,6 @@ export function FinalQuestion({
   answer,
   onAnswer,
   onAdvance,
-  onReady,
 }: Props) {
   const reduce = useReducedMotion();
   const beat = useSequence(BEATS);
@@ -58,16 +55,12 @@ export function FinalQuestion({
   const afterSecond = useTimedReveal(3000, answered);
   const canLeave = useTimedReveal(9000, answered);
 
-  useEffect(() => {
-    if (canLeave) onReady();
-  }, [canLeave, onReady]);
-
   const questionLanded = beat >= 4;
 
   return (
     <section
       aria-label={`Carta 7 de 7: ${track.title}, de ${track.artist}`}
-      className="flex min-h-svh flex-col items-center justify-center px-6 py-20 text-center sm:py-14"
+      className="min-h-screen-ios flex flex-col items-center justify-center px-6 py-20 text-center sm:py-14"
     >
       <motion.p
         className="mb-7 font-serif text-2xl tracking-arcana text-petal-light/75 sm:text-3xl"
@@ -93,7 +86,7 @@ export function FinalQuestion({
         <p className="mt-1.5 text-sm text-mauve sm:text-base">{track.artist}</p>
 
         <div className="mt-7 w-full max-w-[420px]">
-          <SpotifyPlayer track={track} />
+          <SpotifyPlayer track={track} autoPlay />
         </div>
       </motion.div>
 

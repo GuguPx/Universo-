@@ -25,7 +25,7 @@ export function ProgressIndicator({ current, visible }: Props) {
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-x-0 top-0 z-40"
+      className="pt-safe pointer-events-none fixed inset-x-0 top-0 z-40"
       initial={false}
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.7, ease: "easeInOut" }}

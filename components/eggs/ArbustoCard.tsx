@@ -35,7 +35,7 @@ export function ArbustoCard() {
         onClick={() => setFlipped(true)}
         aria-label="uma plantinha escondida nesta carta"
         aria-expanded={flipped}
-        className="-m-1.5 rounded-full p-1.5 text-petal-light/20 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
+        className="-m-2.5 rounded-full p-2.5 text-petal-light/20 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
       >
         <Sprout size={15} />
       </button>
@@ -43,7 +43,7 @@ export function ArbustoCard() {
       <AnimatePresence>
         {flipped && (
           <motion.div
-            className="absolute bottom-full left-1/2 z-40 mb-3 w-[236px] -translate-x-1/2"
+            className="absolute bottom-full left-1/2 z-40 mb-3 w-[236px] max-w-[calc(100vw-2.5rem)] -translate-x-1/2"
             initial={{ opacity: 0, rotateY: reduce ? 0 : -90, scale: 0.92 }}
             animate={{ opacity: 1, rotateY: 0, scale: 1 }}
             exit={{ opacity: 0, rotateY: reduce ? 0 : 90, scale: 0.94 }}

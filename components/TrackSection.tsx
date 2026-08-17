@@ -42,15 +42,25 @@ export function TrackSection({ track, index, narrative, glow = 1 }: Props) {
   return (
     <section
       aria-label={`Carta ${index} de ${TOTAL_TRACKS}: ${track.title}, de ${track.artist}`}
-      className="flex min-h-svh items-center justify-center px-6 py-20 sm:px-8 sm:py-24"
+      className={`min-h-screen-ios flex items-center justify-center px-6 py-12 sm:px-8 sm:py-24 ${
+        // Da carta IV em diante a assinatura fica fixa no rodapé; esse
+        // respiro extra impede que ela caia em cima do botão no celular.
+        index >= 4 ? "pb-24 sm:pb-24" : ""
+      }`}
     >
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-11 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-16 lg:gap-24">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-7 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] md:gap-16 lg:gap-24">
         <div
           className={`flex justify-center ${
             coverFirst ? "md:order-1" : "md:order-2 md:justify-end"
           }`}
         >
-          <Cover track={track} priority={index <= 2} glow={glow} />
+          {/* No celular a capa cede espaço pro botão caber junto da leitura. */}
+          <Cover
+            track={track}
+            priority={index <= 2}
+            glow={glow}
+            maxWidth="min(420px, 62vw)"
+          />
         </div>
 
         <div
@@ -119,7 +129,7 @@ export function TrackSection({ track, index, narrative, glow = 1 }: Props) {
             {...enter}
             transition={{ ...enter.transition, delay: reduce ? 0 : 0.22 }}
           >
-            <SpotifyPlayer track={track} />
+            <SpotifyPlayer track={track} autoPlay />
           </motion.div>
 
           <div

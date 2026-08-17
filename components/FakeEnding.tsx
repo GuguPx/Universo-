@@ -38,7 +38,7 @@ export function FakeEnding({ onReveal, onDim }: Props) {
   return (
     <section
       aria-label="Fim da leitura"
-      className="flex min-h-svh flex-col items-center justify-center px-6 py-20 text-center"
+      className="min-h-screen-ios flex flex-col items-center justify-center px-6 py-20 text-center"
     >
       <motion.h2
         className="font-serif text-[2rem] leading-tight text-cream sm:text-5xl"
