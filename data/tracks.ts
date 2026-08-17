@@ -3,8 +3,8 @@ import type { Track } from "@/types/track";
 export const PLAYLIST_URL =
   "https://open.spotify.com/playlist/4DQlYwD6WkDf3KK7vLp2Dp?si=f41bd7963fab4e02";
 
-/** Para quem a leitura foi feita. */
-export const READING_FOR = "Quemilly";
+/** Para quem a leitura foi feita. Todo lugar que cita o nome vem daqui. */
+export const READING_FOR = "Vitória";
 
 const COVER_640 = "https://i.scdn.co/image/ab67616d0000b273";
 const COVER_300 = "https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02";
@@ -69,8 +69,7 @@ const seeds: TrackSeed[] = [
     message:
       "Essa entrou porque em algum momento eu comecei a te olhar um pouquinho diferente.",
     // Aqui a leitura fica pessoal pela primeira vez.
-    secondaryMessage:
-      "Quemilly, essa talvez tenha sido escolhida com segundas intenções.",
+    secondaryMessage: `${READING_FOR}, essa talvez tenha sido escolhida com segundas intenções.`,
     secondaryDelay: 6000,
   },
   {

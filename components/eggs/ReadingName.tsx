@@ -9,7 +9,7 @@ import { READING_FOR } from "@/data/tracks";
  * O nome dela na abertura. Clicar solta uma estrelinha, depois um
  * coração, e no terceiro toque entrega o motivo — e some de novo.
  */
-export function QuemillyName() {
+export function ReadingName() {
   const reduce = useReducedMotion();
   const [clicks, setClicks] = useState(0);
   const [showLine, setShowLine] = useState(false);

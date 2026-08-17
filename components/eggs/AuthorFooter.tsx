@@ -32,7 +32,9 @@ export function AuthorFooter({ visible }: { visible: boolean }) {
             type="button"
             onClick={() => setRevealed((current) => !current)}
             className={`pointer-events-auto inline-flex min-h-[32px] items-center gap-1.5 text-center text-[0.6rem] leading-tight text-mauve transition-opacity duration-700 hover:opacity-80 focus-visible:opacity-80 sm:text-[0.66rem] ${
-              revealed ? "opacity-80" : "opacity-15"
+              revealed
+                ? "opacity-80"
+                : "opacity-15 [@media(hover:none)]:opacity-30"
             }`}
           >
             <span>feito com decisões questionáveis por um certo arbusto</span>

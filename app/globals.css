@@ -58,6 +58,15 @@
     padding-right: env(safe-area-inset-right);
   }
 
+  /* Toque direto, sem os 300ms de espera nem o zoom de duplo-toque do
+     Safari — os segredos de vários toques dependem disso. */
+  button,
+  a,
+  [role="button"],
+  summary {
+    touch-action: manipulation;
+  }
+
   ::selection {
     background-color: rgba(217, 74, 140, 0.35);
     color: var(--cream);
@@ -93,6 +102,31 @@
 
   .whisper {
     @apply text-[0.8rem] leading-relaxed text-mauve/70 sm:text-sm;
+  }
+
+  /* Os símbolos escondidos: plantinhas, lacinhos, o coração do canto.
+     No desktop eles acendem quando o mouse passa por perto. No celular
+     não existe "passar por perto", então nascem um pouco mais visíveis —
+     ainda discretos, mas achá-veis por quem estiver curiosa. */
+  .glyph-secret {
+    --glyph: 242 139 188;
+    color: rgb(var(--glyph) / 0.2);
+    transition: color 500ms ease;
+  }
+
+  .glyph-secret-soft {
+    --glyph: 247 182 210;
+  }
+
+  @media (hover: none) {
+    .glyph-secret {
+      color: rgb(var(--glyph) / 0.42);
+    }
+  }
+
+  .glyph-secret:hover,
+  .glyph-secret:focus-visible {
+    color: rgb(var(--glyph) / 0.8);
   }
 
   /* O símbolo de cada capítulo. */

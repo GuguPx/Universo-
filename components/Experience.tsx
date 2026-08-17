@@ -25,7 +25,7 @@ import { FinalNote } from "@/components/eggs/FinalNote";
 import { PlantCorner } from "@/components/eggs/PlantCorner";
 import { useTypedWord } from "@/hooks/useTypedWord";
 import { patchState } from "@/lib/storage";
-import { secretTrack, tracks } from "@/data/tracks";
+import { READING_FOR, secretTrack, tracks } from "@/data/tracks";
 import type { FinalAnswer, TelepatiaAnswer } from "@/types/track";
 
 type Stage = "intro" | "track" | "fake-ending" | "secret" | "final-note";
@@ -84,7 +84,7 @@ function ExperienceInner({
   // pergunta já respondida e travada tira a graça da leitura inteira.
 
   useEffect(() => {
-    console.log("Quemilly, você realmente abriu o console? 👀");
+    console.log(`${READING_FOR}, você realmente abriu o console? 👀`);
     console.log("isso aqui era pra ser segredo.");
     console.log("%c— Arbusto 🌱", "color:#F28BBC; font-size:13px;");
   }, []);

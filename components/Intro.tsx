@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Headphones } from "lucide-react";
 import { AdvanceButton } from "@/components/ui/Buttons";
-import { QuemillyName } from "@/components/eggs/QuemillyName";
+import { ReadingName } from "@/components/eggs/ReadingName";
 
 interface Props {
   onStart: () => void;
@@ -62,7 +62,7 @@ export function Intro({ onStart }: Props) {
         style={{ textShadow: "0 0 26px rgba(217,74,140,0.45)" }}
         {...fadeUp(0.85)}
       >
-        <QuemillyName />
+        <ReadingName />
       </motion.p>
 
       <div className="mt-9 space-y-1.5 sm:mt-11">

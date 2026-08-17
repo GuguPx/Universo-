@@ -37,9 +37,7 @@ export function BowSpot({ id, className = "" }: { id: string; className?: string
         onClick={onClick}
         aria-label={found ? "lacinho encontrado" : "um lacinho"}
         className={`-m-2.5 rounded-full p-2.5 transition-colors duration-500 ${
-          found
-            ? "text-petal/70"
-            : "text-petal-light/20 hover:text-petal-light/75"
+          found ? "text-petal/70" : "glyph-secret"
         }`}
       >
         <Bow size={16} />

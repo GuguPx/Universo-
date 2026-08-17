@@ -4,11 +4,12 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Sprout } from "@/components/eggs/Glyphs";
 import { TarotCorners } from "@/components/TarotOrnaments";
+import { READING_FOR } from "@/data/tracks";
 
 const stats = [
   ["elemento", "provavelmente terra"],
   ["especialidade", "criar sites desnecessariamente elaborados"],
-  ["fraqueza", "aparentemente uma certa Quemilly"],
+  ["fraqueza", `aparentemente uma certa ${READING_FOR}`],
   ["raridade", "questionável"],
 ];
 
@@ -35,7 +36,7 @@ export function ArbustoCard() {
         onClick={() => setFlipped(true)}
         aria-label="uma plantinha escondida nesta carta"
         aria-expanded={flipped}
-        className="-m-2.5 rounded-full p-2.5 text-petal-light/20 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
+        className="glyph-secret -m-2.5 rounded-full p-2.5"
       >
         <Sprout size={15} />
       </button>

@@ -1,6 +1,6 @@
 # uma leitura que eu provavelmente não deveria estar fazendo
 
-Uma leitura de cartas feita de música, para Quemilly: sete faixas, uma tela por
+Uma leitura de cartas feita de música, para Vitória: sete faixas, uma tela por
 carta, e um texto que vai revelando a intenção aos poucos. Tem uma oitava carta
 escondida atrás de um falso final.
 
@@ -82,7 +82,7 @@ em 300px caso a versão de 640px falhe — o componente troca sozinho.
 
 | Etapa | O que acontece |
 | --- | --- |
-| Intro | Aura rosa, `✦`, o convite e o "para Quemilly." |
+| Intro | Aura rosa, `✦`, o convite e o "para Vitória." |
 | I → VII | Uma carta por música, com indicador `✦ I / VII` e barra de progresso |
 | III | Libera só depois do `hmm…` (ou sozinho, se a pessoa demorar) |
 | IV | A carta da lua: rosa + lilás, e a pergunta com duas respostas |

@@ -101,7 +101,7 @@ export function SecretCardBack({
         <SymbolButton
           label="uma plantinha"
           symbol="plant"
-          className="absolute bottom-1 right-1 rounded-full p-2.5 text-petal-soft/20 transition-colors duration-500 hover:text-petal-soft/80"
+          className="glyph-secret glyph-secret-soft absolute bottom-1 right-1 rounded-full p-2.5"
         >
           <Sprout size={14} />
         </SymbolButton>

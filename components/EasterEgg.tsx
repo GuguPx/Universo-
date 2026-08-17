@@ -24,6 +24,7 @@ import {
 export function EasterEgg({ onFinalNote }: { onFinalNote: () => void }) {
   const reduce = useReducedMotion();
   const [flipped, setFlipped] = useState(false);
+  const [whisper, setWhisper] = useState(false);
 
   // Verso → Get You. A virada é o momento em que a carta deixa de ser mistério.
   useEffect(() => {
@@ -193,14 +194,21 @@ export function EasterEgg({ onFinalNote }: { onFinalNote: () => void }) {
         </a>
       </Reveal>
 
-      {/* O resto da playlist, sussurrado. */}
+      {/* O resto da playlist, sussurrado. No desktop aparece quando o mouse
+          passa por cima; no celular, com um toque. */}
       <Reveal when={footer} delay={1800} className="mt-11 w-full max-w-2xl">
-        <p
-          className="select-none text-[0.65rem] leading-loose text-petal-light/[0.07] transition-colors duration-1000 hover:text-petal-light/25"
-          aria-hidden="true"
+        <button
+          type="button"
+          onClick={() => setWhisper(true)}
+          aria-label="o resto da playlist, sussurrado"
+          className={`block select-none text-left text-[0.65rem] leading-loose transition-colors duration-1000 ${
+            whisper
+              ? "text-petal-light/25"
+              : "text-petal-light/[0.07] hover:text-petal-light/25 [@media(hover:none)]:text-petal-light/[0.14]"
+          }`}
         >
           {otherTracks.join(" · ")}
-        </p>
+        </button>
       </Reveal>
 
       {/* A última plantinha do site. Ninguém é obrigado a achar. */}
@@ -209,7 +217,7 @@ export function EasterEgg({ onFinalNote }: { onFinalNote: () => void }) {
           type="button"
           onClick={onFinalNote}
           aria-label="uma plantinha"
-          className="-m-3 rounded-full p-3 text-petal-light/[0.13] transition-colors duration-700 hover:text-petal-light/80 focus-visible:text-petal-light"
+          className="glyph-secret -m-3 rounded-full p-3"
         >
           <Sprout size={17} />
         </button>

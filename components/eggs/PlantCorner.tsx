@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Sprout } from "@/components/eggs/Glyphs";
 import { useEggs } from "@/components/eggs/EasterEggProvider";
 
@@ -14,22 +14,31 @@ const dialogue = [
   "Arbusto: pode continuar, eu só tava vendo se você ia clicar nisso.",
 ];
 
-const RAPID_WINDOW = 2000;
+/** No celular ninguém digita "arbusto", então a dica vem da própria planta. */
+const touchHint = "Arbusto: (psiu. tenta segurar aqui.)";
+
+const RAPID_WINDOW = 2800;
 const RAPID_TAPS = 5;
+const LONG_PRESS = 650;
 const SESSION_KEY = "arbustoEasterEggShown";
 
 /**
- * A plantinha do canto. Clicar revela a conversa; cinco toques rápidos
- * abrem a transmissão secreta (é o caminho do celular, onde não dá pra
- * digitar "arbusto").
+ * A plantinha do canto. Clicar revela a conversa; segurar — ou cinco
+ * toques rápidos — abre a transmissão secreta. Esses dois caminhos são o
+ * equivalente de celular a digitar "arbusto" no teclado.
  */
 export function PlantCorner({ visible }: { visible: boolean }) {
   const { openTransmission, markArbustoFound } = useEggs();
   const [step, setStep] = useState(-1);
   const [done, setDone] = useState(false);
+  const [touch, setTouch] = useState(false);
   const taps = useRef<number[]>([]);
+  const pressTimer = useRef<number | null>(null);
+  const heldDown = useRef(false);
 
   useEffect(() => {
+    setTouch(window.matchMedia("(hover: none)").matches);
+
     try {
       setDone(window.sessionStorage.getItem(SESSION_KEY) === "true");
     } catch {
@@ -37,9 +46,14 @@ export function PlantCorner({ visible }: { visible: boolean }) {
     }
   }, []);
 
+  const script = useMemo(
+    () => (touch ? [...dialogue, touchHint] : dialogue),
+    [touch],
+  );
+
   // Depois da última fala, fecha sozinha.
   useEffect(() => {
-    if (step < dialogue.length - 1) return;
+    if (step < script.length - 1) return;
 
     const timer = window.setTimeout(() => {
       setStep(-1);
@@ -53,9 +67,44 @@ export function PlantCorner({ visible }: { visible: boolean }) {
     }, 3200);
 
     return () => window.clearTimeout(timer);
-  }, [step, markArbustoFound]);
+  }, [step, script.length, markArbustoFound]);
+
+  const reveal = useCallback(() => {
+    taps.current = [];
+    setStep(-1);
+    setDone(true);
+    try {
+      window.sessionStorage.setItem(SESSION_KEY, "true");
+    } catch {
+      // A transmissão ainda pode abrir sem storage.
+    }
+    openTransmission();
+  }, [openTransmission]);
+
+  const startPress = useCallback(() => {
+    heldDown.current = false;
+    pressTimer.current = window.setTimeout(() => {
+      heldDown.current = true;
+      reveal();
+    }, LONG_PRESS);
+  }, [reveal]);
+
+  const endPress = useCallback(() => {
+    if (pressTimer.current !== null) {
+      window.clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+  }, []);
+
+  useEffect(() => endPress, [endPress]);
 
   const onClick = useCallback(() => {
+    // Segurar já abriu a transmissão; o clique que vem junto não conta.
+    if (heldDown.current) {
+      heldDown.current = false;
+      return;
+    }
+
     // A plantinha do canto NÃO entra no código lua→estrela→coração→planta.
     // Esse símbolo fica só na carta secreta, senão a conversinha bagunça a sequência.
     const now = Date.now();
@@ -64,21 +113,13 @@ export function PlantCorner({ visible }: { visible: boolean }) {
     );
 
     if (taps.current.length >= RAPID_TAPS) {
-      taps.current = [];
-      setStep(-1);
-      setDone(true);
-      try {
-        window.sessionStorage.setItem(SESSION_KEY, "true");
-      } catch {
-        // A transmissão ainda pode abrir sem storage.
-      }
-      openTransmission();
+      reveal();
       return;
     }
 
     if (done) return;
-    setStep((current) => Math.min(current + 1, dialogue.length - 1));
-  }, [done, openTransmission]);
+    setStep((current) => Math.min(current + 1, script.length - 1));
+  }, [done, reveal, script.length]);
 
   return (
     <AnimatePresence>
@@ -93,8 +134,13 @@ export function PlantCorner({ visible }: { visible: boolean }) {
           <button
             type="button"
             onClick={onClick}
+            onPointerDown={startPress}
+            onPointerUp={endPress}
+            onPointerLeave={endPress}
+            onPointerCancel={endPress}
+            onContextMenu={(event) => event.preventDefault()}
             aria-label="uma plantinha"
-            className="group -m-3 rounded-full p-3 text-petal-light/25 transition-colors duration-500 hover:text-petal-light/80 focus-visible:text-petal-light"
+            className="glyph-secret group -m-3 select-none rounded-full p-3 [-webkit-touch-callout:none]"
           >
             <Sprout
               size={19}
@@ -114,7 +160,7 @@ export function PlantCorner({ visible }: { visible: boolean }) {
                 className="mb-2 max-w-[15rem] text-left font-serif text-[0.8rem] italic leading-snug text-petal-light/85 sm:max-w-xs sm:text-sm"
                 style={{ textShadow: "0 0 20px rgba(9,3,7,0.95)" }}
               >
-                {dialogue[step]}
+                {script[step]}
               </motion.p>
             )}
           </AnimatePresence>
