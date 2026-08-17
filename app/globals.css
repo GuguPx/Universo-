@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+
+    --background: #090307;
+    --background-secondary: #140810;
+
+    --pink-dark: #4a1632;
+    --pink-wine: #711a46;
+    --pink: #d94a8c;
+    --pink-light: #f28bbc;
+    --pink-soft: #f7b6d2;
+
+    --rose: #e66a9f;
+    --magenta: #b82d70;
+
+    --lilac: #c69bf4;
+    --cream: #fff2f7;
+
+    --text-primary: #fff5f9;
+    --text-secondary: #d7a9bd;
+
+    /* Sobrescritas por carta, injetadas pelo BackgroundGradient. */
+    --accent: #d94a8c;
+    --accent-2: #711a46;
+  }
+
+  html {
+    background-color: var(--background);
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+    /* Os halos das capas passam da borda de propósito; isso impede que
+       eles criem uns pixels de rolagem horizontal no celular. */
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgba(217, 74, 140, 0.35);
+    color: var(--cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid rgba(242, 139, 188, 0.8);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(217, 74, 140, 0.22);
+    border-radius: 999px;
+  }
+}
+
+@layer components {
+  /* Rótulos de carta: numeral romano, símbolo, notas de rodapé. */
+  .eyebrow {
+    @apply font-mono text-[10px] uppercase tracking-widestx text-petal-light/55 sm:text-[11px];
+  }
+
+  .thought {
+    @apply font-serif text-[1.35rem] leading-[1.4] text-cream/90 sm:text-2xl md:text-[1.75rem];
+  }
+
+  .whisper {
+    @apply text-[0.8rem] leading-relaxed text-mauve/70 sm:text-sm;
+  }
+
+  /* O símbolo de cada capítulo. */
+  .sigil {
+    @apply select-none font-serif text-petal-light/70;
+    text-shadow: 0 0 18px rgba(217, 74, 140, 0.45);
+  }
+
+  /* Cute mode: glow mais delicado, rosa pastel. */
+  [data-mood="cute"] .sigil {
+    color: rgba(247, 182, 210, 0.78);
+    text-shadow: 0 0 16px rgba(242, 139, 188, 0.35);
+  }
+
+  [data-mood="cute"] .text-aura {
+    background-image: linear-gradient(90deg, #f7b6d2, #f28bbc);
+  }
+
+  /* Mischievous mode: vinho, lilás, magenta — dark-cute. */
+  [data-mood="mischievous"] .sigil {
+    color: rgba(198, 155, 244, 0.72);
+    text-shadow:
+      0 0 18px rgba(184, 45, 112, 0.55),
+      0 0 36px rgba(139, 79, 196, 0.28);
+  }
+
+  [data-mood="mischievous"] .text-aura {
+    background-image: linear-gradient(90deg, #f28bbc, #b82d70 55%, #c69bf4);
+  }
+
+  [data-mood="mischievous"] .whisper {
+    color: rgba(198, 155, 244, 0.55);
+  }
+}
+
+@layer utilities {
+  /* Grão de filme. Tira o aspecto de gradiente de template. */
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+  }
+
+  /* Texto com o degradê da casa — pétala clara para rosa cheio. */
+  .text-aura {
+    background-image: linear-gradient(90deg, #f7b6d2, #d94a8c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-soft {
+    box-shadow:
+      0 0 40px rgba(217, 74, 140, 0.12),
+      0 0 100px rgba(217, 74, 140, 0.05);
+  }
+}
+
+/* Ninguém precisa de movimento pra entender o texto. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
