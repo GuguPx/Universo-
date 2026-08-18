@@ -16,14 +16,14 @@ const serif = Instrument_Serif({
   variable: "--font-serif",
 });
 
-const title = "uma leitura que eu provavelmente não deveria estar fazendo";
+const title = "um pequeno universo para Vitória";
 const description =
-  "algumas músicas fazem mais sentido quando você sabe para quem foram escolhidas.";
+  "algumas páginas, algumas coincidências e uma quantidade suspeita de intenção.";
 
 export const metadata: Metadata = {
   title,
   description,
-  applicationName: "leitura",
+  applicationName: "universo",
   openGraph: {
     title,
     description,
